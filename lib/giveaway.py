@@ -10,6 +10,7 @@ from colorama import init, Fore, Back, Style
 
 init(autoreset=True)
 RANDOM_VAL = [7, 3, 2, 5, 10, 9, 6]
+RANDOM_PAGE = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
 
 class GiveAwayBot(object):
     def __init__(self):
@@ -19,7 +20,7 @@ class GiveAwayBot(object):
         self.ga_prizes = {}
 
     async def _nav_to_ga(self, login_page):
-        await login_page.goto('https://www.amazon.com/ga/giveaways')
+        await login_page.goto('https://www.amazon.com/ga/giveaways?pageId=' + str(numpy.random.choice(RANDOM_PAGE)))
         return login_page
 
     async def login(self, init=True):
@@ -46,9 +47,12 @@ class GiveAwayBot(object):
             pass_msg = 'Enter your Amazon password: '
             self.email = input(email_msg)
             self.password = getpass.getpass(pass_msg)
+            #auto login, uncomment the following two lines and enter your username and password so you won't have to type your credentials every time
+            #self.email = "email goes here"
+            #self.password = "password goes here"
         self.browser = await get_browser()
         login_page = await self.browser.newPage()
-        await login_page.setViewport({'width': 1900, 'height': 1000})
+        await login_page.setViewport({'width': 1400, 'height': 800})
         await login_page.goto(
             'https://www.amazon.com/ap/signin?_encoding=UTF8&ignoreAuthState=1&openid.assoc_handle=usflex&openid.claimed_id=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.identity=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.mode=checkid_setup&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.ns.pape=http%3A%2F%2Fspecs.openid.net%2Fextensions%2Fpape%2F1.0&openid.pape.max_auth_age=0&openid.return_to=https%3A%2F%2Fwww.amazon.com%2Fgp%2Fgiveaway%2Fhome%2Fref%3Dnav_custrec_signin&switch_account='
             )
@@ -121,7 +125,7 @@ class GiveAwayBot(object):
             if ' ' in self.ga_prizes[prize]['Requirement'] and self.ga_prizes[prize]['Entered'] is False and 'Follow' not in self.ga_prizes[prize]['Requirement']:
                 self.display_ga_process(self.ga_prizes[prize]['Name'])
                 prize_page = await self.browser.newPage()
-                await prize_page.setViewport({'width': 1900, 'height': 1000})
+                await prize_page.setViewport({'width': 1400, 'height': 800})
                 await prize_page.goto(self.ga_prizes[prize]['Url'])
                 # testing a random sleep methodology to avoid bot detection / captcha.
                 await asyncio.sleep(numpy.random.choice(RANDOM_VAL))
