@@ -10,7 +10,7 @@ from colorama import init, Fore, Back, Style
 
 init(autoreset=True)
 RANDOM_VAL = [7, 3, 2, 5, 10, 9, 6]
-RANDOM_PAGE = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+RANDOM_PAGE = list(range(1,100))
 
 class GiveAwayBot(object):
     def __init__(self):
