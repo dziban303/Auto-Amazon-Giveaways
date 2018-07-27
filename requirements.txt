@@ -2,3 +2,5 @@ asyncio
 colorama
 pyppeteer
 numpy
+tinydb
+bs4
