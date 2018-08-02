@@ -334,6 +334,7 @@ class GiveAwayBot(object):
                 msg = Fore.LIGHTGREEN_EX + Style.BRIGHT + "**** Moving to next giveaway page -> %s... ****" % (next_page_href)
                 print(msg)               
                 await ga_page.goto(next_page_href)
+                self.ga_prizes.clear()
                 return ga_page
             else:
                 msg = Fore.LIGHTRED_EX + Style.BRIGHT + "**** Could not find Next Page for GiveAways, Exiting... ****"
